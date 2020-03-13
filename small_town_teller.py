@@ -1,6 +1,6 @@
 cust_dict = {}
 acct_dict = {}
-acct_types = ['checking','savings']
+acct_type = ['Checking','Savings']
 
 class Person:
     def __init__(self, id, first_name, last_name):
@@ -22,15 +22,17 @@ class Bank(Person, Account):
     def add_customer(self, id, first_name, last_name):
         if (id not in cust_dict):
             cust_dict[id] = first_name + " " + last_name
+            print(f"Customer {first_name + ' ' + last_name} with ID {id } created.")
         else:
-            print('That id is already in use.')
+            print('That ID is already in use.')
 
     def add_account(self, id, number, type):
-        self.id = id,
-        self.number = number,
-        self.type = type
-        if self.id in cust_dict:
-            self.acct_dict[self.number] = self.id
+        if id in cust_dict and type == 'Checking':
+            acct_dict[id] = {number:type}
+            print(f"{acct_type[0]} account created for {cust_dict[id]}.")
+        elif id in cust_dict and type == 'Savings':
+            acct_dict[id] = {number:type}
+            print(f"{acct_type[1]} account created for {cust_dict[id]}.")
 
     def remove_account(self, account):
         pass
@@ -54,8 +56,6 @@ class Bank(Person, Account):
 
 my_bank = Bank()
 my_bank.add_customer(1,'Alex', 'Apple')
-print(cust_dict)
 my_bank.add_customer(2,'Barry', 'Banana')
-print(cust_dict)
-my_bank.add_account(1,1,'checking')
-print(acct_dict)
+my_bank.add_account(1,100,'Checking')
+my_bank.add_account(1,101,'Savings')
